@@ -2,39 +2,27 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
     <line>
-      <![CDATA[打开浏览器]]>
-    </line>
-    <line>
       <![CDATA[显示输入框]]>
     </line>
-    <line>
-      <![CDATA[关闭浏览器]]>
-    </line>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3083" started-at="2019-11-13T22:47:24 CST" finished-at="2019-11-13T22:47:27 CST">
+  <suite name="Default suite" duration-ms="4596" started-at="2019-11-14T21:41:53 CST" finished-at="2019-11-14T21:41:57 CST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3083" started-at="2019-11-13T22:47:24 CST" finished-at="2019-11-13T22:47:27 CST">
+    <test name="Default test" duration-ms="4596" started-at="2019-11-14T21:41:53 CST" finished-at="2019-11-14T21:41:57 CST">
       <class name="cn.selenium.java.MyProject.Demo1">
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:cn.selenium.java.MyProject.Demo1@43814d18]" name="beforeMethod" is-config="true" duration-ms="1463" started-at="2019-11-13T22:47:24 CST" finished-at="2019-11-13T22:47:26 CST">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:cn.selenium.java.MyProject.Demo1@1f36e637]" name="beforeMethod" is-config="true" duration-ms="2764" started-at="2019-11-14T21:41:53 CST" finished-at="2019-11-14T21:41:55 CST">
           <reporter-output>
-            <line>
-              <![CDATA[打开浏览器]]>
-            </line>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="f()[pri:0, instance:cn.selenium.java.MyProject.Demo1@43814d18]" name="f" duration-ms="1067" started-at="2019-11-13T22:47:26 CST" finished-at="2019-11-13T22:47:27 CST">
+        <test-method status="PASS" signature="f()[pri:0, instance:cn.selenium.java.MyProject.Demo1@1f36e637]" name="f" duration-ms="1223" started-at="2019-11-14T21:41:55 CST" finished-at="2019-11-14T21:41:57 CST">
           <reporter-output>
             <line>
               <![CDATA[显示输入框]]>
             </line>
           </reporter-output>
         </test-method> <!-- f -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:cn.selenium.java.MyProject.Demo1@43814d18]" name="afterMethod" is-config="true" duration-ms="530" started-at="2019-11-13T22:47:27 CST" finished-at="2019-11-13T22:47:27 CST">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:cn.selenium.java.MyProject.Demo1@1f36e637]" name="afterMethod" is-config="true" duration-ms="594" started-at="2019-11-14T21:41:57 CST" finished-at="2019-11-14T21:41:57 CST">
           <reporter-output>
-            <line>
-              <![CDATA[关闭浏览器]]>
-            </line>
           </reporter-output>
         </test-method> <!-- afterMethod -->
       </class> <!-- cn.selenium.java.MyProject.Demo1 -->
