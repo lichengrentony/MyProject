@@ -16,8 +16,25 @@ public class Demo1 extends Feature{
 	public void f() {
 		
 		getUrl();
-		
-		findElementById("kw");
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		//findElementByLinkText("测试技术").click();
+
+		for (WebElement webelement :findElementsByPartialLinkText("测试")) {
+			System.out.println(webelement.getText());
+			if(webelement.getText().equals("测试工具")){
+				webelement.click();
+				break;
+			}
+
+		}
+
+		System.out.println("定位成功");
 		
 		Reporter.log("显示输入框");		
 	}
