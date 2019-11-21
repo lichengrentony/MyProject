@@ -3,6 +3,8 @@ package cn.selenium.java.MyProject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.List;
@@ -13,12 +15,33 @@ public class Feature {
 	
 	protected String baseUrl="http://www.51testing.com";
 	
-	//打开IE浏览器
-	public void before(){
-		System.setProperty("webdriver.ie.driver", ".\\IEDriverServer.exe");
-		
-		driver = new InternetExplorerDriver();
+	//打开浏览器
+	public void before(String type){
+
+		if (type.equalsIgnoreCase("ie")){
+			System.setProperty("webdriver.ie.driver","./IEDriverServer.exe");
+
+			driver = new InternetExplorerDriver();
+		}
+
+		if (type.equalsIgnoreCase("chrome")){
+			System.setProperty("webdriver.chrome.driver","./chromedriver.exe");
+
+			driver = new ChromeDriver();
+		}
+
+		if (type.equalsIgnoreCase("firefox")){
+			System.setProperty("webdriver.gecko.driver","./geckodriver.exe");
+
+			driver = new FirefoxDriver();
+		}
+
 	}
+
+	//打开火狐浏览器
+
+
+    //打开谷歌浏览器
 	
 	//关闭浏览器
 	public void after() {
