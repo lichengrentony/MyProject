@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.List;
 
@@ -15,34 +16,52 @@ public class Feature {
 	
 	protected String baseUrl="http://www.51testing.com";
 	
-	//打开浏览器
+	//打开并最大化浏览器
 	public void before(String type){
 
 		if (type.equalsIgnoreCase("ie")){
+
+			DesiredCapabilities desiredCapabilities = DesiredCapabilities.internetExplorer();
+			desiredCapabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING,true);
+			desiredCapabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS,false);
+			//暂时不起作用
+			//desiredCapabilities.setBrowserName("ie");
+			//desiredCapabilities.setPlatform(Platform.WINDOWS);
+
 			System.setProperty("webdriver.ie.driver","./IEDriverServer.exe");
 
-			driver = new InternetExplorerDriver();
+			driver = new InternetExplorerDriver(desiredCapabilities);
 		}
 
 		if (type.equalsIgnoreCase("chrome")){
+
+			DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+
+			//暂时不起作用
+			//desiredCapabilities.setBrowserName("chrome");
+			//desiredCapabilities.setPlatform(Platform.WINDOWS);
+
 			System.setProperty("webdriver.chrome.driver","./chromedriver.exe");
 
-			driver = new ChromeDriver();
+			driver = new ChromeDriver(desiredCapabilities);
 		}
 
 		if (type.equalsIgnoreCase("firefox")){
+
+			DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
+
+			//暂时不起作用
+			//desiredCapabilities.setBrowserName("firefox");
+			//desiredCapabilities.setPlatform(Platform.WINDOWS);
+
 			System.setProperty("webdriver.gecko.driver","./geckodriver.exe");
 
-			driver = new FirefoxDriver();
+			driver = new FirefoxDriver(desiredCapabilities);
 		}
 
+		driver.manage().window().maximize();
 	}
 
-	//打开火狐浏览器
-
-
-    //打开谷歌浏览器
-	
 	//关闭浏览器
 	public void after() {
 		driver.quit();

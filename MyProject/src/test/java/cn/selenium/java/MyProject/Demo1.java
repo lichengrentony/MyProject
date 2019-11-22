@@ -26,15 +26,20 @@ public class Demo1 extends Feature{
 				webelement.click();
 				break;
 			}
-
 		}
 
 		System.out.println("定位成功");
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@BeforeMethod
 	public void beforeMethod() {
-		before("firefox");
+		before("ie");
 	}
 
 	@AfterMethod
