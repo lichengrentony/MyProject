@@ -1,9 +1,12 @@
 package cn.selenium.java.MyProject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class Demo1 extends Feature{
 	
@@ -12,34 +15,36 @@ public class Demo1 extends Feature{
 		
 		getUrl();
 
+		System.out.println(isEnable(findElementById("searchkey")));
+
+		clearAndSendKeys(findElementById("searchkey"),"selenium");
+
+		System.out.println(getTitle());
+
+		System.out.println(getCurrentUrl());
+
+		Navigate("http://www.baidu.com");
+
+		goBack();
+
+		goForward();
+
+		refresh();
+
+		System.out.println(getPageSource());
+
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		//findElementByLinkText("测试技术").click();
 
-		for (WebElement webelement :findElementsByPartialLinkText("测试")) {
-			System.out.println(webelement.getText());
-			if(webelement.getText().equals("测试工具")){
-				webelement.click();
-				break;
-			}
-		}
-
-		System.out.println("定位成功");
-
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@BeforeMethod
 	public void beforeMethod() {
-		before("ie");
+		before("chrome");
 	}
 
 	@AfterMethod
