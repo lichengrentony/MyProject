@@ -15,7 +15,7 @@ public class Feature {
 
     protected WebDriver driver;
 
-    protected String baseUrl = "http://www.51testing.com/html/index.html";
+    protected String baseUrl = "http://www.baidu.com";
 
     //打开并最大化浏览器
     public void before(String type) {
@@ -182,4 +182,16 @@ public class Feature {
     	boolean flag = webElement.isEnabled();
     	return  flag;
 	}
+
+	//判断元素是否被选中
+    public boolean isSelected(WebElement webElement){
+        boolean flag = webElement.isSelected();
+        return  flag;
+    }
+
+    //定位元素集合
+    public List<WebElement> findElements(String value){
+        List<WebElement> list = driver.findElements(By.xpath(value));
+        return list;
+    }
 }
