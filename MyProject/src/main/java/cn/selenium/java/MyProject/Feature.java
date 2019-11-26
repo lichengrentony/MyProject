@@ -19,7 +19,7 @@ public class Feature {
 
     private WebDriver driver;
 
-    protected static final String baseUrl = "http://www.baidu.com";
+    protected static final String baseUrl = "https://www.ctrip.com/?sid=155952&allianceid=4897&ouid=index";
 
     //打开并最大化浏览器
     public void before(String type) {
