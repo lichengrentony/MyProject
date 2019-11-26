@@ -7,7 +7,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Feature {
 
-    protected WebDriver driver;
+    private WebDriver driver;
 
-    protected String baseUrl = "http://www.baidu.com";
+    protected static final String baseUrl = "http://www.baidu.com";
 
     //打开并最大化浏览器
     public void before(String type) {
@@ -65,7 +67,7 @@ public class Feature {
         driver.manage().window().maximize();
 
         //隐式等待
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     //关闭浏览器
@@ -88,22 +90,29 @@ public class Feature {
         switch (locator) {
             case "id":
                 webElement = driver.findElement(By.id(value));
+                break;
             case "name":
                 webElement = driver.findElement(By.name(value));
+                break;
             case "xpath":
                 webElement = driver.findElement(By.xpath(value));
+                break;
             case "linktext":
                 webElement = driver.findElement(By.linkText(value));
+                break;
             case "partiallinktext":
                 webElement = driver.findElement(By.partialLinkText(value));
+                break;
             case "classname":
                 webElement = driver.findElement(By.className(value));
+                break;
             case "tagname":
                 webElement = driver.findElement(By.tagName(value));
+                break;
             default:
                 System.out.println("Element not found by-" + locator + ":" + value);
-                return webElement;
         }
+        return webElement;
     }
 
     //定位元素集合
@@ -235,6 +244,19 @@ public class Feature {
     //获取元素的属性值
     public String getAttributeValue(WebElement webElement,String attribute){
         return webElement.getAttribute(attribute);
+    }
+
+    //显示等待
+    public WebElement waitForElement(By locator,int timeout){
+        WebElement webElement = null;
+        try {
+            WebDriverWait wait = new WebDriverWait(driver,timeout);
+            webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Element not displayed");
+        }
+        return webElement;
     }
 
 }
