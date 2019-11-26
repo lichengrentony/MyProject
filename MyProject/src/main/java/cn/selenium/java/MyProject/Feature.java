@@ -7,7 +7,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -61,6 +63,8 @@ public class Feature {
         }
 
         driver.manage().window().maximize();
+
+        //隐式等待
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -74,46 +78,59 @@ public class Feature {
         driver.get(baseUrl);
     }
 
-    //通过id定位元素
-    public WebElement findElementById(String id) {
-        WebElement webElement = driver.findElement(By.id(id));
-        return webElement;
+    //定位单个元素
+    public WebElement findElement(String locator, String value) {
+
+        locator = locator.toLowerCase();
+
+        WebElement webElement = null;
+
+        switch (locator) {
+            case "id":
+                webElement = driver.findElement(By.id(value));
+            case "name":
+                webElement = driver.findElement(By.name(value));
+            case "xpath":
+                webElement = driver.findElement(By.xpath(value));
+            case "linktext":
+                webElement = driver.findElement(By.linkText(value));
+            case "partiallinktext":
+                webElement = driver.findElement(By.partialLinkText(value));
+            case "classname":
+                webElement = driver.findElement(By.className(value));
+            case "tagname":
+                webElement = driver.findElement(By.tagName(value));
+            default:
+                System.out.println("Element not found by-" + locator + ":" + value);
+                return webElement;
+        }
     }
 
-    //通过name定位元素
-    public WebElement findElementByName(String name) {
-        WebElement webElement = driver.findElement(By.name(name));
-        return webElement;
-    }
-
-    //通过链接文字定位元素
-    public WebElement findElementByLinkText(String text) {
-        WebElement webElement = driver.findElement(By.linkText(text));
-        return webElement;
-    }
-
-    //通过部分文字链接定位元素
-    public WebElement findElementByPartialLinkText(String text) {
-        WebElement webElement = driver.findElement(By.partialLinkText(text));
-        return webElement;
-    }
-
-    //通过部分文字链接定位多个元素
-    public List<WebElement> findElementsByPartialLinkText(String text) {
-        List<WebElement> webelements = driver.findElements(By.partialLinkText(text));
-        return webelements;
-    }
-
-    //通过标签定位元素 - 未测试
-    public WebElement findElementByTagName(String name) {
-        WebElement webElement = driver.findElement(By.tagName(name));
-        return webElement;
-    }
-
-    //通过类名定位元素 - 未测试
-    public WebElement findElementByClassName(String name) {
-        WebElement webElement = driver.findElement(By.className(name));
-        return webElement;
+    //定位元素集合
+    public List<WebElement> findElements(String locator, String value) {
+        locator = locator.toLowerCase();
+        List<WebElement> list = new ArrayList<WebElement>();
+        switch (locator) {
+            case "id":
+                list = driver.findElements(By.id(value));
+            case "name":
+                list = driver.findElements(By.name(value));
+            case "xpath":
+                list = driver.findElements(By.xpath(value));
+            case "linktext":
+                list = driver.findElements(By.linkText(value));
+            case "partiallinktext":
+                list = driver.findElements(By.partialLinkText(value));
+            case "classname":
+                list = driver.findElements(By.className(value));
+            case "tagname":
+                list = driver.findElements(By.tagName(value));
+            default:
+                if (list.isEmpty()){
+                    System.out.println("Element not found by-" + locator + ":" + value);
+                }
+                return list;
+        }
     }
 
     //遍历表格
@@ -172,26 +189,52 @@ public class Feature {
     }
 
     //获取页面源代码
-	public String getPageSource(){
-    	String pageSource = driver.getPageSource();
-    	return  pageSource;
-	}
+    public String getPageSource() {
+        String pageSource = driver.getPageSource();
+        return pageSource;
+    }
 
-	//判断元素是否可用
-	public boolean isEnable(WebElement webElement){
-    	boolean flag = webElement.isEnabled();
-    	return  flag;
-	}
+    //判断元素是否可用
+    public boolean isEnable(WebElement webElement) {
+        boolean flag = webElement.isEnabled();
+        return flag;
+    }
 
-	//判断元素是否被选中
-    public boolean isSelected(WebElement webElement){
+    //判断元素是否被选中
+    public boolean isSelected(WebElement webElement) {
         boolean flag = webElement.isSelected();
-        return  flag;
+        return flag;
     }
 
-    //定位元素集合
-    public List<WebElement> findElements(String value){
-        List<WebElement> list = driver.findElements(By.xpath(value));
-        return list;
+    //操作下拉列表
+    public void selectBy(WebElement webElement,String locator,String value){
+        Select select = new Select(webElement);
+        locator = locator.toLowerCase();
+        switch (locator){
+            case "value":
+                select.selectByValue(value);
+            case "index":
+                select.selectByIndex(Integer.parseInt(value));
+            case "visibletext":
+                select.selectByVisibleText(value);
+            default:
+                System.out.println("Element not found by-" + locator + ":" + value);
+        }
     }
+
+    //判断元素是否显示
+    public boolean isDisplayed(WebElement webElement){
+         return webElement.isDisplayed();
+    }
+
+    //获取元素上的文本
+    public String getText(WebElement webElement){
+        return webElement.getText();
+    }
+
+    //获取元素的属性值
+    public String getAttributeValue(WebElement webElement,String attribute){
+        return webElement.getAttribute(attribute);
+    }
+
 }
