@@ -8,40 +8,31 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class Demo1 extends Feature{
+public class Demo1 extends Feature {
 
-	@Test
-	public void f() throws InterruptedException {
-		
-		getUrl();
+    @Test
+    public void f() throws InterruptedException {
 
-		findElement("id","HD_CheckIn").click();
+        getUrl();
 
-		WebElement webElement = findElement("xpath","//dl[@class=\"calendar_day\"]//dd");
+        getWindow();
 
-		List<WebElement> list =webElement.findElements(By.xpath("//a"));
+        scrollDown();
+        Thread.sleep(3000);
+        scrollUp();
+        Thread.sleep(3000);
+        scrollIntoView(findElement("xpath","//div[@class='tese']//a[contains(text(),'QT')]"));
+		Thread.sleep(3000);
+    }
 
-		for (WebElement webs:list) {
-			if (webs.getText().equals(30)){
-				webs.click();
-				break;
-			}
-		}
+    @BeforeMethod
+    public void beforeMethod() {
+        before("chrome");
+    }
 
-		//waitForElement(By.xpath("//dd//a[@id='2019-11-30']"),3).click();
-
-		Thread.sleep(2000);
-
-	}
-
-	@BeforeMethod
-	public void beforeMethod() {
-		before("ie");
-	}
-
-	@AfterMethod
-	public void afterMethod() {
-		after();
-	}
+    @AfterMethod
+    public void afterMethod() {
+        after();
+    }
 
 }

@@ -1,6 +1,7 @@
 package cn.selenium.java.MyProject;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,7 +20,9 @@ public class Feature {
 
     private WebDriver driver;
 
-    protected static final String baseUrl = "https://www.ctrip.com/?sid=155952&allianceid=4897&ouid=index";
+    private JavascriptExecutor js = (JavascriptExecutor) driver;
+
+    private static final String baseUrl = "http://www.51testing.com";
 
     //打开并最大化浏览器
     public void before(String type) {
@@ -78,6 +81,7 @@ public class Feature {
     //跳转到指定页面
     public void getUrl() {
         driver.get(baseUrl);
+        //driver.navigate().to();
     }
 
     //定位单个元素
@@ -258,5 +262,30 @@ public class Feature {
         }
         return webElement;
     }
+
+    //获取窗口大小
+    public void getWindow(){
+        js = (JavascriptExecutor) driver;
+        Long height = (Long) js.executeScript("return window.innerHeight;");
+        Long width = (Long) js.executeScript("return window.innerWidth;");
+        System.out.println("The height is:"+height);
+        System.out.println("The width is:"+width);
+    }
+
+    //向上滚动
+    public  void scrollUp(){
+        js.executeScript("window.scrollBy(0,-1900);");
+    }
+
+    //向下滚动
+    public  void scrollDown(){
+        js.executeScript("window.scrollBy(0,1900);");
+    }
+
+    public void scrollIntoView(WebElement webElement){
+        js.executeScript("arguments[0].scrollIntoView(true);",webElement);
+    }
+
+
 
 }
