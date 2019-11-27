@@ -1,28 +1,34 @@
 package cn.selenium.java.MyProject;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Feature {
 
-    private WebDriver driver;
+    public WebDriver driver = null;
 
-    private JavascriptExecutor js = (JavascriptExecutor) driver;
+    public JavascriptExecutor js = null;
 
-    private static final String baseUrl = "http://www.51testing.com";
+    public static final String baseUrl = "http://www.baidu.com";
+
+    public Alert alert = null;
+
+    public Actions actions = null;
 
     //打开并最大化浏览器
     public void before(String type) {
@@ -265,7 +271,6 @@ public class Feature {
 
     //获取窗口大小
     public void getWindow(){
-        js = (JavascriptExecutor) driver;
         Long height = (Long) js.executeScript("return window.innerHeight;");
         Long width = (Long) js.executeScript("return window.innerWidth;");
         System.out.println("The height is:"+height);
@@ -282,10 +287,96 @@ public class Feature {
         js.executeScript("window.scrollBy(0,1900);");
     }
 
+    //滚动到指定元素
     public void scrollIntoView(WebElement webElement){
         js.executeScript("arguments[0].scrollIntoView(true);",webElement);
     }
 
+    //生成随机数
+    public String getRandow(int length){
+        StringBuilder sb = new StringBuilder();
+        String character = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        for (int i=0;i<length;i++){
+            int index = (int)(Math.random()*character.length());
+            sb.append(character.charAt(index));
+        }
+        return sb.toString();
+    }
 
+    //截图并保存到screenshot目录
+    public void getScreenShot(String filename) throws IOException {
+        filename = filename +".png";
+        String directory = "./screenshot/";
+        File scourceFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        System.out.println(scourceFile.getName());
+        FileUtils.copyFile(scourceFile,new File(directory+filename));
+    }
+
+    //获取windowhandle
+    public String getWindowHandle(){
+        String windowHandle = driver.getWindowHandle();
+        System.out.println("The handle is"+windowHandle);
+        return windowHandle;
+    }
+
+    //获取windowhandles
+    public Set<String> getWindowhandles(){
+        Set<String> handles = driver.getWindowHandles();
+        for (String handle:handles) {
+            System.out.println("The handles is:"+handle);
+        }
+        return handles;
+    }
+
+    //通过handle切换到新窗口
+    public void switchToWindow(String handle){
+        driver.switchTo().window(handle);
+    }
+
+    //关闭当前窗口
+    public void closeCurrentWindow(){
+        driver.close();
+    }
+
+    //切换到iFrame
+    public void switchtoiframe(){
+        driver.switchTo().frame(0);
+    }
+
+    //切换到主窗口
+    public void switchtodefault(){
+        driver.switchTo().defaultContent();
+    }
+
+    //处理Javascript弹窗
+    public void clickOnOk(){
+        alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    //处理Javascript弹窗
+    public void clickOnDismiss(){
+        alert = driver.switchTo().alert();
+        alert.dismiss();
+    }
+
+    //鼠标悬停
+    public void moveToElement(WebElement webElement){
+        actions = new Actions(driver);
+        actions.moveToElement(webElement).perform();
+    }
+
+    //鼠标拖拽
+    public  void dragAndDrop(WebElement source,WebElement target){
+        actions = new Actions(driver);
+        //actions.clickAndHold(source).moveToElement(target).release();
+        actions.dragAndDrop(source, target).build().perform();
+    }
+
+    //拖动滚动条
+    public void drapScrollBar(WebElement webElement,int xOffset,int yOffset){
+        actions = new Actions(driver);
+        actions.dragAndDropBy(webElement,xOffset,yOffset).perform();
+    }
 
 }

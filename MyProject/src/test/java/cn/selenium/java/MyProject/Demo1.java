@@ -1,28 +1,27 @@
 package cn.selenium.java.MyProject;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
+import java.io.IOException;
 
 public class Demo1 extends Feature {
 
     @Test
-    public void f() throws InterruptedException {
+    public void f() throws InterruptedException, IOException {
 
         getUrl();
 
-        getWindow();
+        findElement("id","kw").sendKeys("selenium");
 
-        scrollDown();
-        Thread.sleep(3000);
-        scrollUp();
-        Thread.sleep(3000);
-        scrollIntoView(findElement("xpath","//div[@class='tese']//a[contains(text(),'QT')]"));
-		Thread.sleep(3000);
+        findElement("id","su").sendKeys(Keys.TAB);
+
+        findElement("id","su").sendKeys(Keys.ENTER);
+
+        Thread.sleep(2000);
+
     }
 
     @BeforeMethod
