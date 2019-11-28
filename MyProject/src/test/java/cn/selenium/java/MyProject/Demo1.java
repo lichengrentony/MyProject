@@ -16,9 +16,11 @@ public class Demo1 extends Feature {
 
         findElement("id","kw").sendKeys("selenium");
 
-        findElement("id","su").sendKeys(Keys.TAB);
+        findElement("id","su").click();
 
-        findElement("id","su").sendKeys(Keys.ENTER);
+        String keys = Keys.CONTROL+"a";
+
+        findElement("partiallinktext","软件测试进阶").sendKeys(Keys.chord(keys));
 
         Thread.sleep(2000);
 

@@ -379,4 +379,10 @@ public class Feature {
         actions.dragAndDropBy(webElement,xOffset,yOffset).perform();
     }
 
+    //Actions处理按键
+    public void sendkeys(){
+        actions = new Actions(driver);
+        actions.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).build().perform();
+    }
+
 }
