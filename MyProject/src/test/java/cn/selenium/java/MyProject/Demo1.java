@@ -12,17 +12,19 @@ public class Demo1 extends Feature {
     @Test
     public void f() throws InterruptedException, IOException {
 
+        killAllBrowser();
+
         getUrl();
 
-        findElement("id","kw").sendKeys("selenium");
+        setPosition(150,150);
 
-        findElement("id","su").click();
+        setDimension(500,500);
 
-        String keys = Keys.CONTROL+"a";
+        getPosition();
 
-        findElement("partiallinktext","软件测试进阶").sendKeys(Keys.chord(keys));
+        getSize();
 
-        Thread.sleep(2000);
+        Thread.sleep(3000);
 
     }
 

@@ -1,15 +1,18 @@
 package cn.selenium.java.MyProject;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.os.WindowsUtils;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.reflect.misc.FieldUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,15 +23,19 @@ import java.util.concurrent.TimeUnit;
 
 public class Feature {
 
-    public WebDriver driver = null;
+    private WebDriver driver = null;
 
-    public JavascriptExecutor js = null;
+    private JavascriptExecutor js = null;
 
-    public static final String baseUrl = "http://www.baidu.com";
+    private static final String baseUrl = "http://www.baidu.com";
 
-    public Alert alert = null;
+    private Alert alert = null;
 
-    public Actions actions = null;
+    private Actions actions = null;
+
+    private Point point = null;
+
+    private Dimension dimension = null;
 
     //打开并最大化浏览器
     public void before(String type) {
@@ -383,6 +390,36 @@ public class Feature {
     public void sendkeys(){
         actions = new Actions(driver);
         actions.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).build().perform();
+    }
+
+    //设置浏览器的位置
+    public void setPosition(int x,int y){
+        point = new Point(x,y);
+        driver.manage().window().setPosition(point);
+    }
+
+    //设置浏览器的大小
+    public void setDimension(int x,int y){
+        dimension = new Dimension(x,y);
+        driver.manage().window().setSize(dimension);
+    }
+
+    //获取浏览器的位置
+    public void getPosition(){
+        System.out.println(driver.manage().window().getPosition());
+
+    }
+
+    //获取浏览器的大小
+    public void getSize(){
+        System.out.println( driver.manage().window().getSize());
+    }
+
+    //关闭所有浏览器
+    public void killAllBrowser(){
+        WindowsUtils.killByName("iexplore.exe");
+        WindowsUtils.killByName("chrome.exe");
+        WindowsUtils.killByName("firefox.exe");
     }
 
 }
