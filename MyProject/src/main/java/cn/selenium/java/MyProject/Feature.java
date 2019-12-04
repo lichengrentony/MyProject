@@ -1,6 +1,8 @@
 package cn.selenium.java.MyProject;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -34,6 +36,8 @@ public class Feature {
     private Point point = null;
 
     private Dimension dimension = null;
+
+    private static final Logger log = LogManager.getLogger(Feature.class.getName());
 
     //打开并最大化浏览器
     public void before(String type) {
@@ -82,11 +86,13 @@ public class Feature {
 
         //隐式等待
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        log.info("打开浏览器");
     }
 
     //关闭浏览器
     public void after() {
         driver.quit();
+        log.info("关闭浏览器");
     }
 
     //跳转到指定页面

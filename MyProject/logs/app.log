@@ -1,0 +1,18 @@
+16:29:45.241 ERROR Demo1 -Error message logged
+16:29:45.245 FATAL Demo1 -fatal message logged
+16:29:45.245 INFO  Demo1 -Info message logged
+16:37:59.484 ERROR Demo1 -Error message logged
+16:37:59.487 FATAL Demo1 -fatal message logged
+16:37:59.487 INFO  Demo1 -Info message logged
+16:39:40.169 DEBUG Demo1 -Debug message logged
+16:39:40.169 ERROR Demo1 -Error message logged
+16:39:40.169 FATAL Demo1 -fatal message logged
+16:39:40.169 INFO  Demo1 -Info message logged
+16:39:40.169 TRACE Demo1 -Trace message logged
+16:40:25.662 DEBUG MyProject.Demo1 -Debug message logged
+16:40:25.662 ERROR MyProject.Demo1 -Error message logged
+16:40:25.662 FATAL MyProject.Demo1 -fatal message logged
+16:40:25.662 INFO  MyProject.Demo1 -Info message logged
+16:40:25.662 TRACE MyProject.Demo1 -Trace message logged
+16:52:55.910 INFO  MyProject.Feature -打开浏览器
+16:53:03.864 INFO  MyProject.Feature -关闭浏览器
